@@ -35,19 +35,21 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController);
 
         NewsApi api = RetrofitClient.newInstance().create(NewsApi.class);
+        Log.d("getTopHeadlines", "CREATED");
         api.getTopHeadlines("US").enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                Log.d("getTopHeadlines", "RESPONSE");
                 if (response.isSuccessful()) {
-                    Log.d("getTopHeadlines", response.body().toString());
+                    Log.d("getTopHeadlines", "SUCCESS "+response.body().toString());
                 } else {
-                    Log.d("getTopHeadlines", response.toString());
+                    Log.d("getTopHeadlines", "ELSE "+response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<NewsResponse> call, Throwable t) {
-                Log.d("getTopHeadlines", t.toString());
+                Log.d("getTopHeadlines", "FAILED "+t.toString());
             }
         });
 
